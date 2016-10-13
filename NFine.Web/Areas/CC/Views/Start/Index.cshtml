@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/CC/Start/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+                { label: '编号', name: 'No', width: 120 },
+                { label: '流程分类', name: 'FK_FlowSortText', width: 120, align: 'left' },
+                { label: '流程名字', name: 'Name', width: 120, align: 'left' },
+                
+                //IsBatchStart
+                {
+                    label: '支持批量发起', name: 'IsBatchStart', width: 120, align: 'center',
+                    formatter: function (cellvalue, options, rowObject) {
+                        if (cellvalue == 0) {
+                            return '否';
+                        } else {
+                            return '是';
+                        }
+                    }
+                }
+            ],
+            pager: "#gridPager",
+            sortname: 'No asc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+
+    function btn_go()
+    {
+       var value = $("#gridList").jqGridRowValue().No;
+        //  alert(value);
+       var openUrl = "/WF/MyFlow.aspx?FK_Flow=" + value;
+       this.location = openUrl;
+       //$.modalOpen({
+       //    id: "Form",
+       //    title: "发起新工作",
+       //    url: openUrl,
+       //    width: "800px",
+       //    height: "1000px",
+       //    btn: null
+       //});
+    }
+
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已选中<span>1</span>项</li>
+                <li><a id="NF-Go" authorize="yes" onclick="btn_go()"><i class="fa fa-pencil-square-o"></i>发起</a></li>
+                <li><a id="NF-BatchGo" authorize="yes" onclick="btn_BatchGo()"><i class="fa fa-pencil-square-o"></i>批量发起</a></li>
+                <li><a id="NF-ViewPicture" authorize="yes" onclick="btn_ViewPicture()"><i class="fa fa-pencil-square-o"></i>查看流程图</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="流程名字" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>

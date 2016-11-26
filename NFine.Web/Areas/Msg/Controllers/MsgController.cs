@@ -1,4 +1,5 @@
-﻿using NFine.Application.SystemManage;
+﻿using AppMessageService;
+using NFine.Application.SystemManage;
 using NFine.Domain.Entity.SystemManage;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,9 @@ namespace NFine.Web.Areas.Msg.Controllers
     {
         //
         // GET: /Msg/Msg/
-
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
         private UserApp userApp = new UserApp();
+
+        private MsgService objMsgService = new MsgService();
 
         public ViewResult ToList()
         {
@@ -37,10 +34,7 @@ namespace NFine.Web.Areas.Msg.Controllers
 
         public ActionResult GoToSendPage()
         {
-            //string txtPhone =  Request["keyValue"];
-
             List<UserEntity> list = userApp.GetList(Request["keyValue"]);
-
             string text = "";
             foreach (var item in list)
             {
@@ -50,5 +44,19 @@ namespace NFine.Web.Areas.Msg.Controllers
             ViewData["phone"] = text;
             return View("SendMsg");
         }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitForm()
+        {
+            bool isTrue = objMsgService.SendSimpleAllDevice(Request["title"], Request["content"]);
+            if (isTrue)
+            {
+                return Success("操作成功。");
+            }
+            return Error("发送失败，请稍后再试");
+        }
+
     }
 }

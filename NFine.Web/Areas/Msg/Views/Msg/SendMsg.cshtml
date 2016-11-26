@@ -6,33 +6,55 @@
     $(function () {
         $('.wrapper').height($(window).height() - 11);
     })
-</script>
-<div class="wrapper">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#a" data-toggle="tab">信息推送</a></li>
-    </ul>
-    <div class="tab-content" style="padding-top: 5px;">
-        <div id="a" class="tab-pane active" style="padding: 15px;">
-            <ul class="pop-list">
-                <li>
-                    <label>标题</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>内容</label>
-                    <textarea class="form-control" style="height: 60px;"></textarea>
-                </li>
-                <li>
-                    <label>发送到</label>
-                    <textarea id="txtAccepter" class="form-control" style="height: 300px;">@ViewData["phone"]</textarea>
-                </li>
-                <li>
-                    <div style="padding-left: 115px;">
-                        <a class="btn btn-primary" onclick="btn_send()"><i class="fa fa-save" style="margin-right:5px;"></i>确认发送</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
 
+
+    function submitForm() {
+        if ($("#title").val()==""){
+            alert("请输入发送标题")
+        } else if ($("#content").val() == "") {
+            alert("请输入发送内容");
+        } else if ($("#txtAccepter").val() == "") {
+            alert("请输入或者在上一页选择接受对象");
+        } else {
+            $.submitForm({
+                url: "/Msg/Msg/SubmitForm",
+                param: $("#form1").formSerialize(),
+                success: function () {
+                    location.href = "/Msg/Msg/ToAdd";
+                }
+            })
+        }
+    }
+
+</script>
+<form id="form1">
+    <div class="wrapper">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#a" data-toggle="tab">信息推送</a></li>
+        </ul>
+        <div class="tab-content" style="padding-top: 5px;">
+            <div id="a" class="tab-pane active" style="padding: 15px;">
+                <ul class="pop-list">
+                    <li>
+                        <label>标题</label>
+                        <input type="text" id="title" class="form-control" />
+                    </li>
+                    <li>
+                        <label>内容</label>
+                        <textarea class="form-control" id="content" style="height: 60px;"></textarea>
+                    </li>
+                    <li>
+                        <label>发送到</label>
+                        <textarea id="txtAccepter" class="form-control" style="height: 300px;">@ViewData["phone"]</textarea>
+                    </li>
+                    <li>
+                        <div style="padding-left: 115px;">
+                            <a class="btn btn-primary" onclick="submitForm()"><i class="fa fa-save" style="margin-right:5px;"></i>确认发送</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
     </div>
-</div>
+    </form>

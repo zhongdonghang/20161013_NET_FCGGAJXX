@@ -11541,6 +11541,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppMessageService\AppMessageService.csproj">
+      <Project>{409502ba-6a4e-40f9-93ff-1355ff4350a6}</Project>
+      <Name>AppMessageService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\cc\BP.Demo\BP.Demo.csproj">
       <Project>{8e48d1df-ceed-4f0c-b863-3359b2a99134}</Project>
       <Name>BP.Demo</Name>

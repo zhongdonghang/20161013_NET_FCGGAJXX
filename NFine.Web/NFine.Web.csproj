@@ -128,6 +128,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\app.asmx.cs">
+      <DependentUpon>app.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="App_Start\01 Handler\HandlerAjaxOnlyAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerAuthorizeAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
@@ -4128,6 +4132,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Api\app.asmx" />
     <Content Include="ClientBin\CCFlowDesigner.xap" />
     <Content Include="ClientBin\CCFlowDesignerSingle.xap" />
     <Content Include="ClientBin\CCFormDesigner.xap" />
@@ -11837,6 +11842,7 @@
     <Content Include="Areas\Msg\Views\Web.config" />
     <Content Include="Areas\Msg\Views\Msg\ToList.cshtml" />
     <Content Include="Areas\Msg\Views\Msg\ToAdd.cshtml" />
+    <Content Include="Areas\Msg\Views\Msg\SendMsg.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
     <Content Include="WF\Admin\BPMN\common\CCFlowDesignerBase.ashx" />
     <Content Include="WF\Admin\BPMN\common\controller.ashx" />

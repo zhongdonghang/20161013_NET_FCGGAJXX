@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NFine.Application.SystemManage;
+using NFine.Domain.Entity.SystemManage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +18,8 @@ namespace NFine.Web.Areas.Msg.Controllers
         //    return View();
         //}
 
+        private UserApp userApp = new UserApp();
+
         public ViewResult ToList()
         {
             ViewResult vr = new ViewResult();
@@ -28,6 +32,23 @@ namespace NFine.Web.Areas.Msg.Controllers
             ViewResult vr = new ViewResult();
             vr.ViewName = "ToAdd";
             return vr;
+        }
+
+
+        public ActionResult GoToSendPage()
+        {
+            //string txtPhone =  Request["keyValue"];
+
+            List<UserEntity> list = userApp.GetList(Request["keyValue"]);
+
+            string text = "";
+            foreach (var item in list)
+            {
+                text += item.F_RealName + "|" + item.F_MobilePhone + ","+"\n";
+            }
+            text = text.Trim(',');
+            ViewData["phone"] = text;
+            return View("SendMsg");
         }
     }
 }

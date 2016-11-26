@@ -18,6 +18,21 @@ namespace NFine.Application.SystemManage
         private IUserRepository service = new UserRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
+        public List<UserEntity> GetList(string F_ids)
+        {
+            var expression = ExtLinq.True<UserEntity>();
+
+            string[] ar = F_ids.Split(',');
+            string s = "";
+            foreach (var item in ar)
+            {
+                s += "'" + item + "'";
+                s += ",";
+            }
+            s = s.TrimEnd(',');
+            return service.FindList("select * from [Sys_User] where  F_Id in(" + s + ") ");
+        }
+
         public List<UserEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<UserEntity>();

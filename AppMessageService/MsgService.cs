@@ -52,17 +52,17 @@ namespace AppMessageService
                 Content = Content, //中文测试
                 Vibrate = 1,
                 Ring = 1,
-                Action = new NotifyMessageAction()
-                {
-                    Action_type = 2,
-                    Browser = new NotifyMessageAction_Browser()
-                    {
-                        Url = "http://baidu.com",
-                        Confirm = 0
-                    },
-                    Intent = "http://baidu.com",
-                    Activity = "XGPushDemo"
-                }
+                //Action = new NotifyMessageAction()
+                //{
+                //    Action_type = 2,
+                //    Browser = new NotifyMessageAction_Browser()
+                //    {
+                //        Url = "http://baidu.com",
+                //        Confirm = 0
+                //    },
+                //    Intent = "http://baidu.com",
+                //    Activity = "XGPushDemo"
+                //}
             };
             XGResult<XGPushResult> a = qqxg.PushAllDevices(xgp);
             if (!string.IsNullOrEmpty(a.Result.Push_id)) isTrue = true;

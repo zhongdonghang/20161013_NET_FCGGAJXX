@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 
-    ///  author:jasnature from http://www.cnblogs.com/NatureSex/
+///  author:jasnature from http://www.cnblogs.com/NatureSex/
 namespace NSTool.XGPush.Core
 {
     /// <summary>

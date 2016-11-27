@@ -54,6 +54,9 @@ namespace NFine.Domain._03_Entity.Message
         /// </summary>
         public string F_State { get; set; }
 
-
+        /// <summary>
+        /// 结果备注
+        /// </summary>
+        public string F_Result { get; set; }
     }
 }

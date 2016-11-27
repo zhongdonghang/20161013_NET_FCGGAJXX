@@ -29,7 +29,7 @@ namespace NFine.Domain._03_Entity.Message
         /// <summary>
         /// 发送时间
         /// </summary>
-        public string F_SendTime { get; set; }
+        public DateTime F_SendTime { get; set; }
         /// <summary>
         /// 发送人
         /// </summary>

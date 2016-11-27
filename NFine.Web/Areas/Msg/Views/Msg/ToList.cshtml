@@ -1,4 +1,153 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
 }
-查询
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/Msg/Msg/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '消息类型', name: 'F_Msg_Type', width: 100, align: 'left' },
+                { label: '发送时间', name: 'F_SendTime', width: 80, align: 'left' },
+                { label: '发送人', name: 'F_Sender', width: 80, align: 'left' },
+                { label: '接受人', name: 'F_Accepter', width: 80, align: 'left' },
+                { label: '标题', name: 'F_Title', width: 150, align: 'left' },
+                { label: '内容', name: 'F_Content', width: 150, align: 'left' },
+                { label: '状态', name: 'F_State', width: 60, align: 'left' },
+                { label: '结果', name: 'F_Result', width: 100, align: 'left' },
+                { label: '创建时间', name: 'F_CreatorTime', width: 150, align: 'left' },
+            ],
+           // multiselect: true,
+            pager: "#gridPager",
+            sortname: 'F_CreatorTime desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增用户",
+            url: "/SystemManage/User/Form",
+            width: "700px",
+            height: "510px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_send() {
+        var rowIds = jQuery("#gridList").jqGrid('getGridParam', 'selarrrow');
+        var keyValue = "";
+        if (rowIds.length) {
+            for (var i = 0; i < rowIds.length; i++) {
+                var myrow = jQuery('#gridList').jqGrid('getRowData', rowIds[i]);
+                keyValue += myrow.F_Id;
+                if (i != rowIds.length-1) keyValue+=",";
+            }
+        }
+        window.location.href = "/Msg/Msg/GoToSendPage?keyValue=" + keyValue;
+
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/SystemManage/User/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalOpen({
+            id: "Details",
+            title: "查看用户",
+            url: "/SystemManage/User/Details?keyValue=" + keyValue,
+            width: "700px",
+            height: "550px",
+            btn: null,
+        });
+    }
+    function btn_revisepassword() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var Account = $("#gridList").jqGridRowValue().F_Account;
+        var RealName = $("#gridList").jqGridRowValue().F_RealName;
+        $.modalOpen({
+            id: "RevisePassword",
+            title: '重置密码',
+            url: '/SystemManage/User/RevisePassword?keyValue=' + keyValue + "&account=" + escape(Account) + '&realName=' + escape(RealName),
+            width: "450px",
+            height: "260px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_disabled() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/SystemManage/User/DisabledAccount",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
+    function btn_enabled() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/SystemManage/User/EnabledAccount",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
+</script>
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+
+        
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="发送标题/发送人" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>

@@ -1,5 +1,7 @@
 ﻿using AppMessageService;
+using NFine.Application.Message;
 using NFine.Application.SystemManage;
+using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
 using System;
 using System.Collections.Generic;
@@ -14,8 +16,22 @@ namespace NFine.Web.Areas.Msg.Controllers
         //
         // GET: /Msg/Msg/
         private UserApp userApp = new UserApp();
-
+        private B_AppMessageApp appMessageApp = new B_AppMessageApp();
         private MsgService objMsgService = new MsgService();
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJson(Code.Pagination pagination, string keyword)
+        {
+            var data = new
+            {
+                rows = appMessageApp.GetList(pagination, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
 
         public ViewResult ToList()
         {

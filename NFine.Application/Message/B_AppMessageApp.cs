@@ -1,4 +1,5 @@
-﻿using NFine.Domain._03_Entity.Message;
+﻿using NFine.Code;
+using NFine.Domain._03_Entity.Message;
 using NFine.Domain._04_IRepository.Message;
 using NFine.Repository.Message;
 using System;
@@ -12,6 +13,19 @@ namespace NFine.Application.Message
     public class B_AppMessageApp
     {
         private IB_AppMessageRepository service = new B_AppMessageRepository();
+
+        public List<B_AppMessageEntity> GetList(Pagination pagination, string keyword)
+        {
+            var expression = ExtLinq.True<B_AppMessageEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_Title.Contains(keyword));
+                expression = expression.Or(t => t.F_Sender.Contains(keyword));
+               // expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
+            }
+           // expression = expression.And(t => t.F_Account != "admin");
+            return service.FindList(expression, pagination);
+        }
 
         public List<B_AppMessageEntity> GetList()
         {

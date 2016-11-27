@@ -1,4 +1,7 @@
-﻿using NSTool.XGPush;
+﻿using NFine.Application.Message;
+using NFine.Code;
+using NFine.Domain._03_Entity.Message;
+using NSTool.XGPush;
 using NSTool.XGPush.Base;
 using NSTool.XGPush.Core;
 using System;
@@ -66,6 +69,19 @@ namespace AppMessageService
             };
             XGResult<XGPushResult> a = qqxg.PushAllDevices(xgp);
             if (!string.IsNullOrEmpty(a.Result.Push_id)) isTrue = true;
+
+            B_AppMessageApp objB_AppMessageApp = new B_AppMessageApp();
+            //objB_AppMessageApp.SubmitForm()
+            B_AppMessageEntity objB_AppMessageEntity = new B_AppMessageEntity();
+            objB_AppMessageEntity.F_Msg_Type = "即时推送全部消息";
+            objB_AppMessageEntity.F_SendTime = DateTime.Now;
+            objB_AppMessageEntity.F_Sender = OperatorProvider.Provider.GetCurrent().UserName;
+            objB_AppMessageEntity.F_Accepter = "all";
+            objB_AppMessageEntity.F_Title = title;
+            objB_AppMessageEntity.F_Content = Content;
+            objB_AppMessageEntity.F_State = isTrue ? "成功" : "失败";
+            objB_AppMessageEntity.F_Result = a.Err_msg + a.Result + a.Ret_code;
+            objB_AppMessageApp.SubmitForm(objB_AppMessageEntity, string.Empty);
             return isTrue;
         }
     }

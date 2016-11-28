@@ -61,7 +61,7 @@ namespace GTPushTools
             return pushResult;
         }
 
-        private  void PushMessageToList(string content,List<string> cids)
+        public string PushMessageToList(string content,List<string> cids)
         {
             // 推送主类（方式1，不可与方式2共存）
             IGtPush push = new IGtPush(HOST, AppKey, MasterSecret);
@@ -89,6 +89,7 @@ namespace GTPushTools
 
             String contentId = push.getContentId(message);
             String pushResult = push.pushMessageToList(contentId, targetList);
+            return pushResult;
         }
 
 

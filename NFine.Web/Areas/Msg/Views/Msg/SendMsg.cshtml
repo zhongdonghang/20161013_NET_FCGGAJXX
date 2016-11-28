@@ -3,8 +3,21 @@
     Layout = "~/Views/Shared/_Index.cshtml";
 }
 <script>
+    var txtValue = '@ViewData["phone"]';
+    var sendType = '@ViewData["sendType"]';
+
     $(function () {
         $('.wrapper').height($(window).height() - 11);
+
+
+        if (sendType == 'All')
+        {
+            $('#txtAccepter').text('全部所有终端');
+
+        } else if (sendType == 'NotAll')
+        {
+            $('#txtAccepter').html(txtValue);
+        }
     })
 
 
@@ -16,13 +29,27 @@
         } else if ($("#txtAccepter").val() == "") {
             alert("请输入或者在上一页选择接受对象");
         } else {
-            $.submitForm({
-                url: "/Msg/Msg/SubmitForm",
-                param: $("#form1").formSerialize(),
-                success: function () {
-                    location.href = "/Msg/Msg/ToAdd";
-                }
-            })
+
+            if (sendType == 'All') {
+                $.submitForm({
+                    url: "/Msg/Msg/SubmitForm",
+                    param: $("#form1").formSerialize(),
+                    success: function () {
+                        location.href = "/Msg/Msg/ToAdd";
+                    }
+                })
+
+            } else if (sendType == 'NotAll') {
+                $.submitForm({
+                    url: "/Msg/Msg/SendMsg2UserList",
+                    param: $("#form1").formSerialize(),
+                    success: function () {
+                        location.href = "/Msg/Msg/ToAdd";
+                    }
+                })
+            }
+
+
         }
     }
 
@@ -35,17 +62,13 @@
         <div class="tab-content" style="padding-top: 5px;">
             <div id="a" class="tab-pane active" style="padding: 15px;">
                 <ul class="pop-list">
-                    @*<li>
-                        <label>标题</label>
-                        <input type="text" id="title" class="form-control" />
-                    </li>*@
                     <li>
                         <label>内容</label>
                         <textarea class="form-control" id="content" style="height: 60px;"></textarea>
                     </li>
                     <li>
                         <label>发送到</label>
-                        <textarea id="txtAccepter" class="form-control" style="height: 300px;">@ViewData["phone"]</textarea>
+                        <textarea id="txtAccepter" class="form-control" style="height: 300px;"></textarea>
                     </li>
                     <li>
                         <div style="padding-left: 115px;">

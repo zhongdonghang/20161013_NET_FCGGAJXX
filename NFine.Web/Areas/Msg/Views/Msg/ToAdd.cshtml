@@ -86,6 +86,12 @@
       
     }
 
+    function btnSendALl() {
+
+        window.location.href = "/Msg/Msg/GoToSendAllPage";
+
+    }
+
 
 
 
@@ -95,9 +101,9 @@
         <div class="btn-group">
             <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
-        @*<div class="btn-group">
-            <a id="NF-MSG_SEND" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>发送消息</a>
-        </div>*@
+        <div class="btn-group">
+            <a id="NF-MSG_SEND-ALL" authorize="yes" class="btn btn-primary dropdown-text" onclick="btnSendALl()"><i class="fa fa-plus"></i>全体发送消息</a>
+        </div>
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已选中<span>1</span>项</li>

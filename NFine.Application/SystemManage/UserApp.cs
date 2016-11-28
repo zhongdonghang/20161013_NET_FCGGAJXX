@@ -18,6 +18,23 @@ namespace NFine.Application.SystemManage
         private IUserRepository service = new UserRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
+        /// <summary>
+        /// 根据账户列表查询出实体列表
+        /// </summary>
+        /// <param name="accountList"></param>
+        /// <returns></returns>
+        public List<UserEntity> GetList(List<string> accountList)
+        {
+            string strWhere = string.Empty;
+            foreach (var item in accountList)
+            {
+                strWhere += "'"+item+"'";
+                strWhere += ",";
+            }
+            strWhere = strWhere.TrimEnd(',');
+            return service.FindList("select * from [Sys_User] where  F_Account in(" + strWhere + ") ");
+        }
+
         public List<UserEntity> GetList()
         {
             var expression = ExtLinq.True<UserEntity>();

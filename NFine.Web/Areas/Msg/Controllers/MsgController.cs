@@ -17,8 +17,8 @@ namespace NFine.Web.Areas.Msg.Controllers
         // GET: /Msg/Msg/
         private UserApp userApp = new UserApp();
         private B_AppMessageApp appMessageApp = new B_AppMessageApp();
-        private MsgService objMsgService = new MsgService();
-
+        //  private MsgService objMsgService = new MsgService();
+        private GeTuiMsgService objGeTuiMsgService = new GeTuiMsgService();
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Code.Pagination pagination, string keyword)
@@ -66,7 +66,7 @@ namespace NFine.Web.Areas.Msg.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitForm()
         {
-            bool isTrue = objMsgService.SendSimpleAllDevice(Request["title"], Request["content"]);
+            bool isTrue = objGeTuiMsgService.pushMessageToAllApp(Request["content"]);//.SendSimpleAllDevice(Request["title"], Request["content"]);
             if (isTrue)
             {
                 return Success("操作成功。");

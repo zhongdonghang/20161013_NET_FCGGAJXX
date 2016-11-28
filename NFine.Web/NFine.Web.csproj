@@ -137,10 +137,6 @@
     <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
-    <Compile Include="Areas\CC\CCAreaRegistration.cs" />
-    <Compile Include="Areas\CC\Controllers\StartController.cs" />
-    <Compile Include="Areas\CC\Controllers\ViewAllController.cs" />
-    <Compile Include="Areas\CC\Models\SimpleFlowViewModel.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\BarCodeController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\PrintController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\SendMailController.cs" />
@@ -458,8 +454,14 @@
     <Content Include="DLL\System.Windows.Interactivity.dll" />
     <Content Include="DLL\XControls.dll" />
     <Content Include="Global.asax" />
+    <Content Include="GTDll\GetuiServerApiSDK.dll" />
+    <Content Include="GTDll\Google.ProtocolBuffers.dll" />
+    <Content Include="GTDll\log4net.dll" />
+    <Content Include="GTDll\System.Web.Extensions.dll" />
     <Content Include="Index.htm" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -492,7 +494,6 @@
     <Content Include="Areas\SystemManage\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configs\log4net.config" />
     <Content Include="Configs\system.config">
       <SubType>Designer</SubType>
     </Content>
@@ -506,30 +507,6 @@
     <ProjectReference Include="..\AppMessageService\AppMessageService.csproj">
       <Project>{409502ba-6a4e-40f9-93ff-1355ff4350a6}</Project>
       <Name>AppMessageService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cc\BP.Demo\BP.Demo.csproj">
-      <Project>{8e48d1df-ceed-4f0c-b863-3359b2a99134}</Project>
-      <Name>BP.Demo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cc\BP.En30\BP.En30.csproj">
-      <Project>{f9d27bab-758d-4205-bfc8-76b49a4c87f1}</Project>
-      <Name>BP.En30</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cc\BP.GPMClient\BP.GPMClient.csproj">
-      <Project>{ff691e0a-4a23-4e7a-aa0f-a7ebaa2e711b}</Project>
-      <Name>BP.GPMClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cc\BP.GPM\BP.GPM.csproj">
-      <Project>{3ae8c44b-7dba-4312-a775-57172697faa7}</Project>
-      <Name>BP.GPM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cc\BP.Web.Controls30\BP.Web.Controls30.csproj">
-      <Project>{b04d173b-69f6-4bf3-8ea4-8db2fc7f33f4}</Project>
-      <Name>BP.Web.Controls30</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cc\BP.WF\BP.WF.csproj">
-      <Project>{04147518-e5e6-4b01-a797-094b8ba9cfd5}</Project>
-      <Name>BP.WF</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFine.Application\NFine.Application.csproj">
       <Project>{f2035ee2-b73d-4fb8-a433-cab465de6a2a}</Project>
@@ -671,7 +648,6 @@
     <Content Include="Areas\ReportManage\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\CC\Views\Shared\" />
     <Folder Include="Areas\Msg\Models\" />
     <Folder Include="Areas\Msg\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
@@ -729,13 +705,13 @@
   <ItemGroup>
     <Content Include="Areas\SystemManage\Views\User\Info.cshtml" />
     <Content Include="Configs\CC.config" />
-    <Content Include="Areas\CC\Views\Web.config" />
-    <Content Include="Areas\CC\Views\Start\Index.cshtml" />
-    <Content Include="Areas\CC\Views\ViewAll\Index.cshtml" />
     <Content Include="Areas\Msg\Views\Web.config" />
     <Content Include="Areas\Msg\Views\Msg\ToList.cshtml" />
     <Content Include="Areas\Msg\Views\Msg\ToAdd.cshtml" />
     <Content Include="Areas\Msg\Views\Msg\SendMsg.cshtml" />
+    <Content Include="GTDll\GetuiServerApiSDK.dll.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
   </ItemGroup>
   <PropertyGroup>

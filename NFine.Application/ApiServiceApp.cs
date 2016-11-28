@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using NFine.Application;
+using NFine.Application.Message;
 using NFine.Application.SystemManage;
 using NFine.Application.SystemSecurity;
 using NFine.Code;
 using NFine.Data.Extensions;
 using NFine.Domain._02_ViewModel;
+using NFine.Domain._03_Entity.Message;
 using NFine.Domain.Entity.SystemManage;
 using NFine.Domain.Entity.SystemSecurity;
 using NFine.Domain.IRepository.SystemManage;
@@ -30,13 +32,73 @@ namespace NFine.Application
 
         #endregion
 
+        private B_AppUserMessageLogApp objB_AppUserMessageLogApp = new B_AppUserMessageLogApp();
+
+        public string UpdateMsgToReaded(string msgId,string readerLocation,string readerLocationX,string readerLocationY)
+        {
+            ReturnSimpleResult1 ret = new ReturnSimpleResult1();
+            try
+            {
+                B_AppUserMessageLogEntity oldObj = objB_AppUserMessageLogApp.GetForm(msgId);
+                oldObj.F_ReadState = "Y";
+                oldObj.F_ReaderTime = DateTime.Now;
+                oldObj.F_ReaderLocation = readerLocation;
+                oldObj.F_ReaderLocationX = readerLocationX;
+                oldObj.F_ReaderLocationY = readerLocationY;
+
+                objB_AppUserMessageLogApp.SubmitForm(oldObj, msgId);
+                ret.Msg = "操作成功";
+                ret.ResultCode = "0";
+            }
+            catch (Exception ex)
+            {
+                ret.Msg = ex.ToString();
+                ret.ResultCode = "-1";
+            }
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(ret);
+        }
+
+
+        /// <summary>
+        /// 根据登录账户查询历史消息列表
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public string GetMsgLogByAccount(string username)
+        {
+            ReturnPageResult<B_AppUserMessageLogEntity> ret = new ReturnPageResult<B_AppUserMessageLogEntity>();
+
+            try
+            {
+                List<B_AppUserMessageLogEntity> list =  objB_AppUserMessageLogApp.GetList(username);
+                ret.ResultCode = "0";
+                ret.Msg = "查询成功";
+                PageObject<B_AppUserMessageLogEntity> page = new PageObject<B_AppUserMessageLogEntity>();
+                page.PageCount = 9999;
+                page.PageIndex = 0;
+                page.RecordCount = list.Count;
+                page.PageSize = 9999;
+                page.Data = list;
+
+                ret.Page = page;
+            }
+            catch (Exception ex)
+            {
+                ret.Msg = ex.ToString();
+                ret.ResultCode = "-1";
+            }
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(ret);
+        }
+
 
 
         /// <summary>
         /// App登录
         /// </summary>
         /// <returns></returns>
-        public string AppLogin(string username, string password)
+        public string AppLogin(string username, string password,string cid)
         {
             ReturnSimpleResult2<AppRegsiterResult> ret = new ReturnSimpleResult2<AppRegsiterResult>();
             try
@@ -54,6 +116,11 @@ namespace NFine.Application
                     ret.Msg = "登录成功";
                     ret.ResultCode = "200";
                     ret.t = vm;
+
+                    //写入CID  用User表里面F_NickName存放cid
+                    //  userDllService.Update()
+                    userEntity.F_NickName = cid;
+                    userDllService.Update(userEntity);
 
                     #region 写登录日志
                     logEntity.F_Account = userEntity.F_Account;

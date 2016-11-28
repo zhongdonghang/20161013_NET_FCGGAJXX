@@ -18,6 +18,12 @@ namespace NFine.Application.SystemManage
         private IUserRepository service = new UserRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
+        public List<UserEntity> GetList()
+        {
+            var expression = ExtLinq.True<UserEntity>();
+            return service.FindList("select * from [Sys_User]");
+        }
+
         public List<UserEntity> GetList(string F_ids)
         {
             var expression = ExtLinq.True<UserEntity>();

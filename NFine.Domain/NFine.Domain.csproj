@@ -45,6 +45,7 @@
     <Compile Include="01 Infrastructure\IEntity.cs" />
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
     <Compile Include="02 ViewModel\AppRegsiterResult.cs" />
+    <Compile Include="03 Entity\Message\B_AppUserMessageLogEntity.cs" />
     <Compile Include="03 Entity\Message\B_AppMessageEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
+    <Compile Include="04 IRepository\Message\IB_AppUserMessageLogRepository.cs" />
     <Compile Include="04 IRepository\Message\IB_AppMessageRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />

@@ -62,5 +62,7 @@ namespace NFine.Application.Message
                 service.Insert(appMessageEntity);
             }
         }
+
+        
     }
 }

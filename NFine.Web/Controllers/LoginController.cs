@@ -86,7 +86,7 @@ namespace NFine.Web.Controllers
                     }
 
                     //执行CC登录
-                    BP.WF.Dev2Interface.Port_Login(userEntity.F_Account);
+                    //BP.WF.Dev2Interface.Port_Login(userEntity.F_Account);
 
                     OperatorProvider.Provider.AddCurrent(operatorModel);
                     logEntity.F_Account = userEntity.F_Account;

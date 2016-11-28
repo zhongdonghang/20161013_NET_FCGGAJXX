@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeTuiMsgService.cs" />
     <Compile Include="MsgService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,6 +51,10 @@
     <ProjectReference Include="..\App_Message\NSTool.XGPush\NSTool.XGPush.csproj">
       <Project>{680e2e49-a6e7-4c36-a030-5ca0cd4da317}</Project>
       <Name>NSTool.XGPush</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GTPushTools\GTPushTools.csproj">
+      <Project>{62B98F3C-2959-4A07-A406-A4A3BB0DBF68}</Project>
+      <Name>GTPushTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFine.Application\NFine.Application.csproj">
       <Project>{F2035EE2-B73D-4FB8-A433-CAB465DE6A2A}</Project>

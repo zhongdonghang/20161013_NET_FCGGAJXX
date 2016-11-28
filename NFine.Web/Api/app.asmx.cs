@@ -17,11 +17,22 @@ namespace NFine.Web.Api
     // [System.Web.Script.Services.ScriptService]
     public class app : System.Web.Services.WebService
     {
+        [WebMethod(Description = "更新指定消息已读状态,msgId记录编号，readerLocation地理位置描述，readerLocationX地理位置x，readerLocationY地理位置Y")]
+        public void UpdateMsgToReaded(string msgId, string readerLocation, string readerLocationX, string readerLocationY)
+        {
+            HttpContext.Current.Response.Write(new ApiServiceApp().UpdateMsgToReaded(msgId,readerLocation,readerLocationX,readerLocationY));
+        }
+
+        [WebMethod(Description = "根据登录名查询历史消息记录")]
+        public void GetMsgByAccount(string loginName)
+        {
+            HttpContext.Current.Response.Write(new ApiServiceApp().GetMsgLogByAccount(loginName));
+        }
 
         [WebMethod(Description = "app登录方法")]
-        public void AppLogin(string loginName,string loginPass)
+        public void AppLogin(string loginName,string loginPass,string cid)
         {
-            HttpContext.Current.Response.Write(new ApiServiceApp().AppLogin(loginName, loginPass));
+            HttpContext.Current.Response.Write(new ApiServiceApp().AppLogin(loginName, loginPass, cid));
         }
     }
 }

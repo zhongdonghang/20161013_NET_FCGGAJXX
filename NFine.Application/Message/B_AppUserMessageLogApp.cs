@@ -34,11 +34,24 @@ namespace NFine.Application.Message
             return service.FindList(expression, pagination);
         }
 
-        public List<B_AppUserMessageLogEntity> GetList(string userName)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="pageIndex">从1开始</param>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public List<B_AppUserMessageLogEntity> GetList(string userName,string pageIndex,string PageSize) 
         {
             var expression = ExtLinq.True<B_AppUserMessageLogEntity>();
-
-            return service.FindList("select * from [B_AppUserMessageLog] where  F_UserName='"+ userName + "' order by F_SendTime desc");
+            string sql = "SELECT TOP "+ PageSize + " * "+
+                " FROM "+
+                " ( " +
+                  "  SELECT ROW_NUMBER() OVER(ORDER BY F_SendTime desc) AS RowNumber, * " +
+                 "   FROM[B_AppUserMessageLog] where F_UserName = 'zxf' " +
+                " ) A " + 
+                 "   WHERE RowNumber > "+ PageSize + " * ("+ pageIndex + " - 1)";
+            return service.FindList(sql);
         }
 
         public List<B_AppUserMessageLogEntity> GetList(Pagination pagination, string keyword,string userName)

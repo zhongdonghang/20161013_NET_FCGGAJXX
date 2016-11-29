@@ -23,10 +23,10 @@ namespace NFine.Web.Api
             HttpContext.Current.Response.Write(new ApiServiceApp().UpdateMsgToReaded(msgId,readerLocation,readerLocationX,readerLocationY));
         }
 
-        [WebMethod(Description = "根据登录名查询历史消息记录")]
-        public void GetMsgByAccount(string loginName)
+        [WebMethod(Description = "根据登录名查询历史消息记录，loginName为登录账户名,pageIndex页脚索引从1开始，分页参数记得一定传整数")]
+        public void GetMsgByAccount(string loginName,string pageIndex,string pageSize)
         {
-            HttpContext.Current.Response.Write(new ApiServiceApp().GetMsgLogByAccount(loginName));
+            HttpContext.Current.Response.Write(new ApiServiceApp().GetMsgLogByAccount(loginName, pageIndex, pageSize));
         }
 
         [WebMethod(Description = "app登录方法")]

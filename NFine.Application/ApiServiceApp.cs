@@ -65,20 +65,20 @@ namespace NFine.Application
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public string GetMsgLogByAccount(string username)
+        public string GetMsgLogByAccount(string username, string index, string pagesize)
         {
             ReturnPageResult<B_AppUserMessageLogEntity> ret = new ReturnPageResult<B_AppUserMessageLogEntity>();
 
             try
             {
-                List<B_AppUserMessageLogEntity> list =  objB_AppUserMessageLogApp.GetList(username);
+                List<B_AppUserMessageLogEntity> list =  objB_AppUserMessageLogApp.GetList(username, index,pagesize);
                 ret.ResultCode = "0";
                 ret.Msg = "查询成功";
                 PageObject<B_AppUserMessageLogEntity> page = new PageObject<B_AppUserMessageLogEntity>();
-                page.PageCount = 9999;
-                page.PageIndex = 0;
+                page.PageCount = list.Count%int.Parse(pagesize)==0 ? list.Count / int.Parse(pagesize): (list.Count / int.Parse(pagesize)) + 1;
+                page.PageIndex =int.Parse( index);
                 page.RecordCount = list.Count;
-                page.PageSize = 9999;
+                page.PageSize = int.Parse(pagesize);
                 page.Data = list;
 
                 ret.Page = page;

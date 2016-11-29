@@ -15,23 +15,7 @@
                 { label: '主键', name: 'F_Id', hidden: true },
                 { label: '账户', name: 'F_Account', width: 80, align: 'left' },
                 { label: '姓名', name: 'F_RealName', width: 80, align: 'left' },
-                {
-                    label: '性别', name: 'F_Gender', width: 60, align: 'center',
-                    formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue == true) {
-                            return '男';
-                        } else {
-                            return '女';
-                        }
-                    }
-                },
                 { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
-                {
-                    label: '公司', name: 'F_OrganizeId', width: 150, align: 'left',
-                    formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
-                    }
-                },
                 {
                     label: '部门', name: 'F_DepartmentId', width: 80, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
@@ -43,10 +27,6 @@
                     formatter: function (cellvalue, options, rowObject) {
                         return top.clients.duty[cellvalue] == null ? "" : top.clients.duty[cellvalue].fullname;
                     }
-                },
-                {
-                    label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
-                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                 },
                 {
                     label: "允许登录", name: "F_EnabledMark", width: 60, align: "center",

@@ -36,6 +36,11 @@ namespace NFine.Domain._03_Entity.Message
         public string F_Sender { get; set; }
 
         /// <summary>
+        /// 接收人名字
+        /// </summary>
+        public string F_RealName { get; set; }
+
+        /// <summary>
         /// 接受者账户
         /// </summary>
         public string F_UserName { get; set; }
@@ -68,7 +73,7 @@ namespace NFine.Domain._03_Entity.Message
         /// <summary>
         /// 阅读时间
         /// </summary>
-        public DateTime F_ReaderTime { get; set; }
+        public DateTime? F_ReaderTime { get; set; }
 
         /// <summary>
         /// 阅读地点

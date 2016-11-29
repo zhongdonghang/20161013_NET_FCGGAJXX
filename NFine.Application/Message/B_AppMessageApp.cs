@@ -14,6 +14,14 @@ namespace NFine.Application.Message
     {
         private IB_AppMessageRepository service = new B_AppMessageRepository();
 
+
+
+        /// <summary>
+        /// 获取消息发送列表
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
         public List<B_AppMessageEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<B_AppMessageEntity>();

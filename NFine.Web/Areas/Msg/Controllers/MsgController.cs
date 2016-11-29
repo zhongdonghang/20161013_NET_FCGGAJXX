@@ -14,11 +14,46 @@ namespace NFine.Web.Areas.Msg.Controllers
     public class MsgController : ControllerBase
     {
         //
-        // GET: /Msg/Msg/
+        // GET: /Msg/Msg/AcceptMsgLogList
         private UserApp userApp = new UserApp();
         private B_AppMessageApp appMessageApp = new B_AppMessageApp();
-        //  private MsgService objMsgService = new MsgService();
         private GeTuiMsgService objGeTuiMsgService = new GeTuiMsgService();
+
+        private B_AppUserMessageLogApp objB_AppUserMessageLogApp = new B_AppUserMessageLogApp();
+        /// <summary>
+        /// 获取消息接受列表
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJsonForAcceptLog(Code.Pagination pagination, string keyword)
+        {
+            var data = new
+            {
+                rows = objB_AppUserMessageLogApp.GetList(pagination, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
+
+        public ViewResult AcceptMsgLogList()
+        {
+            ViewResult vr = new ViewResult();
+            vr.ViewName = "AcceptMsgLogList";
+            return vr;
+        }
+
+
+        /// <summary>
+        /// 获取消息发送列表
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Code.Pagination pagination, string keyword)
@@ -47,13 +82,20 @@ namespace NFine.Web.Areas.Msg.Controllers
             return vr;
         }
 
-
+        /// <summary>
+        /// 前往全量全体消息发送界面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GoToSendAllPage()
         {
             ViewData["sendType"] = "All";
             return View("SendMsg");
         }
 
+        /// <summary>
+        /// 前往指定账户消息发送页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GoToSendPage()
         {
             List<UserEntity> list = userApp.GetList(Request["keyValue"]);
@@ -68,6 +110,10 @@ namespace NFine.Web.Areas.Msg.Controllers
             return View("SendMsg");
         }
 
+        /// <summary>
+        /// 全体全量推送消息
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -81,6 +127,10 @@ namespace NFine.Web.Areas.Msg.Controllers
             return Error("发送失败，请稍后再试");
         }
 
+        /// <summary>
+        /// 发送消息到指定账户列表
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]

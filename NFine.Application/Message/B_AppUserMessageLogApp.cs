@@ -10,11 +10,29 @@ using System.Threading.Tasks;
 
 namespace NFine.Application.Message
 {
-    public class B_AppUserMessageLogApp
+    public class B_AppUserMessageLogApp 
     {
+  
+
         private IB_AppUserMessageLogRepository service = new B_AppUserMessageLogRepository();
 
-       
+        /// <summary>
+        /// 获取消息发送列表
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public List<B_AppUserMessageLogEntity> GetList(Pagination pagination, string keyword)
+        {
+            var expression = ExtLinq.True<B_AppUserMessageLogEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.Or(t => t.F_RealName.Contains(keyword)); //根据接收人名字查询
+               // expression = expression.Or(t => t.F_Phone.Contains(keyword)); //根据接收人手机号码查询
+              //  expression = expression.Or(t => t.F_Content.Contains(keyword)); //根据消息内容查询
+            }
+            return service.FindList(expression, pagination);
+        }
 
         public List<B_AppUserMessageLogEntity> GetList(string userName)
         {

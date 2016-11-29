@@ -712,6 +712,7 @@
     <Content Include="GTDll\GetuiServerApiSDK.dll.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Msg\Views\Msg\AcceptMsgLogList.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
   </ItemGroup>
   <PropertyGroup>

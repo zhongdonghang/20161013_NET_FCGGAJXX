@@ -72,6 +72,7 @@ namespace AppMessageService
                 log.F_Msg_Type = "即时推送指定账户";
                 log.F_SendTime = objB_AppMessageEntity.F_SendTime;
                 log.F_Sender = OperatorProvider.Provider.GetCurrent().UserName;
+                log.F_RealName = item.F_RealName;
                 log.F_UserName = item.F_Account;
                 log.F_Phone = item.F_MobilePhone;
                 log.F_Cid = item.F_NickName;
@@ -80,7 +81,7 @@ namespace AppMessageService
                 log.F_State = objB_AppMessageEntity.F_State;
 
                 log.F_ReadState = "N";
-                log.F_ReaderTime = DateTime.Now;
+                log.F_ReaderTime = null;
                 log.F_ReaderLocation = "未知";
                 log.F_ReaderLocationX = "0.0";
                 log.F_ReaderLocationY = "0.0";
@@ -127,6 +128,7 @@ namespace AppMessageService
                 log.F_Msg_Type = "即时推送全部消息";
                 log.F_SendTime = objB_AppMessageEntity.F_SendTime;
                 log.F_Sender = OperatorProvider.Provider.GetCurrent().UserName;
+                log.F_RealName = item.F_RealName;
                 log.F_UserName = item.F_Account;
                 log.F_Phone = item.F_MobilePhone;
                 log.F_Cid = item.F_NickName;
@@ -135,7 +137,7 @@ namespace AppMessageService
                 log.F_State = objB_AppMessageEntity.F_State;
 
                 log.F_ReadState = "N";
-                log.F_ReaderTime = DateTime.Now;
+                log.F_ReaderTime = null;
                 log.F_ReaderLocation = "未知";
                 log.F_ReaderLocationX = "0.0";
                 log.F_ReaderLocationY = "0.0";

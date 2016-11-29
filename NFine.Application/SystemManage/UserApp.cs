@@ -18,6 +18,16 @@ namespace NFine.Application.SystemManage
         private IUserRepository service = new UserRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
+
+        public UserEntity GetByAccount(string account)
+        {
+           List<UserEntity> list =  service.FindList("select * from [Sys_User] where  F_Account ='"+ account + "' ");
+           if (list == null || list.Count == 0)
+                return null;
+            return list[0];
+
+        }
+
         /// <summary>
         /// 根据账户列表查询出实体列表
         /// </summary>

@@ -10,7 +10,7 @@ namespace NFine.Web.Api
     /// <summary>
     /// app 的摘要说明
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://xx.duncan.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // 若要允许使用 ASP.NET AJAX 从脚本中调用此 Web 服务，请取消注释以下行。 
@@ -33,6 +33,12 @@ namespace NFine.Web.Api
         public void AppLogin(string loginName,string loginPass,string cid)
         {
             HttpContext.Current.Response.Write(new ApiServiceApp().AppLogin(loginName, loginPass, cid));
+        }
+
+        [WebMethod(Description = "app注册方法")]
+        public void AppReg(string cid, string F_Account, string F_RealName, string F_MobilePhone)
+        {
+            HttpContext.Current.Response.Write(new ApiServiceApp().AppReg(cid, F_Account, F_RealName, F_MobilePhone));
         }
     }
 }

@@ -92,7 +92,54 @@ namespace NFine.Application
             return Newtonsoft.Json.JsonConvert.SerializeObject(ret);
         }
 
+        /// <summary>
+        /// app注册
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public string AppReg(string cid,string F_Account, string F_RealName,string F_MobilePhone)
+        {
+            ReturnSimpleResult1 ret = new ReturnSimpleResult1();
+            try
+            {
+                //判断注册登录名有无重复
+                if (new UserApp().GetByAccount(F_Account) == null)
+                {
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.F_NickName = cid;
+                    userEntity.F_Account = F_Account;
+                    userEntity.F_RealName = F_RealName;
+                    userEntity.F_MobilePhone = F_MobilePhone;
+                    userEntity.F_Gender = true;
+                    userEntity.F_OrganizeId = "201610010103358907"; //默认港口分局
+                    userEntity.F_DepartmentId = "201610010103358907"; //默认部门港口分局
+                    userEntity.F_RoleId = "201610131455228290";//默认角色
+                    userEntity.F_DutyId = "201610131449398845";//默认岗位
+                    userEntity.F_IsAdministrator = false;
+                    userEntity.F_EnabledMark = true;
 
+                    UserLogOnEntity userLogOnEntity = new UserLogOnEntity();
+                    userLogOnEntity.F_UserPassword = "123456";//默认密码
+
+                    new UserApp().SubmitForm(userEntity, userLogOnEntity, string.Empty);
+                    ret.Msg = "注册成功";
+                    ret.ResultCode = "0";
+                }
+                else
+                {
+                    ret.Msg = "注册失败，该登录账户已经存在，建议使用自己的手机号码";
+                    ret.ResultCode = "0";
+                }
+            }
+            catch (Exception ex)
+            {
+                ret.Msg = ex.ToString();
+                ret.ResultCode = "-1";
+            }
+            return Newtonsoft.Json.JsonConvert.SerializeObject(ret);
+        }
 
         /// <summary>
         /// App登录

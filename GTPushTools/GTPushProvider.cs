@@ -34,8 +34,8 @@ namespace GTPushTools
             IGtPush push = new IGtPush(HOST, AppKey, MasterSecret);
             // 定义"AppMessage"类型消息对象，设置消息内容模板、发送的目标App列表、是否支持离线发送、以及离线消息有效期(单位毫秒)
             AppMessage message = new AppMessage();
-
-            TransmissionTemplate template = TransmissionTemplateDemo(content);
+            NotificationTemplate template = NotificationTemplateDemo(content);
+            //   TransmissionTemplate template = NotificationTemplateDemo(content);//TransmissionTemplateDemo(content);
             //  template.TransmissionContent = "0000000000000000000";
             message.IsOffline = true;                         // 用户当前不在线时，是否离线存储,可选
             message.OfflineExpireTime = 1000 * 3600 * 12;     // 离线有效时间，单位为毫秒，可选
@@ -68,8 +68,8 @@ namespace GTPushTools
             // 推送主类（方式2，不可与方式1共存）此方式可通过获取服务端地址列表判断最快域名后进行消息推送，每10分钟检查一次最快域名
             //IGtPush push = new IGtPush("",APPKEY,MASTERSECRET);
             ListMessage message = new ListMessage();
-
-            TransmissionTemplate template = TransmissionTemplateDemo(content);
+            NotificationTemplate template = NotificationTemplateDemo(content);
+            // TransmissionTemplate template = TransmissionTemplateDemo(content);
             // 用户当前不在线时，是否离线存储,可选
             message.IsOffline = true;
             // 离线有效时间，单位为毫秒，可选
@@ -92,6 +92,36 @@ namespace GTPushTools
             return pushResult;
         }
 
+        public NotificationTemplate NotificationTemplateDemo(string content)
+        {
+            NotificationTemplate template = new NotificationTemplate();
+            template.AppId = AppID;
+            template.AppKey = AppKey;
+            //通知栏标题
+            template.Title = "消息通知";
+            //通知栏内容    
+            template.Text = content;
+            //通知栏显示本地图片 
+            template.Logo = "";
+            //通知栏显示网络图标
+            template.LogoURL = "";
+            //应用启动类型，1：强制应用启动  2：等待应用启动 
+            template.TransmissionType = "2";
+            //透传内容
+            template.TransmissionContent = content;
+            //接收到消息是否响铃，true：响铃 false：不响铃
+            template.IsRing = true;
+            //接收到消息是否震动，true：震动 false：不震动
+            template.IsVibrate = true;
+            //接收到消息是否可清除，true：可清除 false：不可清除
+            template.IsClearable = false;
+            //设置客户端展示时间
+            //String begin = "2015-03-06 14:36:10";
+            //String end = "2015-03-06 14:46:20";
+            //template.setDuration(begin, end);            
+            return template;
+        }
+
 
         /*
         * 
@@ -105,7 +135,7 @@ namespace GTPushTools
             TransmissionTemplate template = new TransmissionTemplate();
             template.AppId = AppID;
             template.AppKey = AppKey;
-            template.TransmissionType = "1";            //应用启动类型，1：强制应用启动 2：等待应用启动
+            template.TransmissionType = "2";            //应用启动类型，1：强制应用启动 2：等待应用启动
             template.TransmissionContent = content;  //透传内容
 
             //设置客户端展示时间

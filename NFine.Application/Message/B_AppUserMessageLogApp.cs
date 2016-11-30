@@ -48,7 +48,7 @@ namespace NFine.Application.Message
                 " FROM "+
                 " ( " +
                   "  SELECT ROW_NUMBER() OVER(ORDER BY F_SendTime desc) AS RowNumber, * " +
-                 "   FROM[B_AppUserMessageLog] where F_UserName = 'zxf' " +
+                 "   FROM[B_AppUserMessageLog] where F_UserName = '"+ userName + "' " +
                 " ) A " + 
                  "   WHERE RowNumber > "+ PageSize + " * ("+ pageIndex + " - 1)";
             return service.FindList(sql);
